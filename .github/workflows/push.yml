@@ -73,7 +73,7 @@ jobs:
           echo "::set-output name=REACT_APP_CDN_URL::REACT_APP_${BRANCH}_CDN_URL"
           echo "::set-output name=REACT_APP_INTERCOM_APP_ID::REACT_APP_${BRANCH}_INTERCOM_APP_ID"
           echo "::set-output name=REACT_APP_INTERCOM_HASH_KEY::REACT_APP_${BRANCH}_INTERCOM_HASH_KEY"
-          echo "::set-env name=BRANCH_NAME::${BRANCH}"
+          echo "::set-output name=BRANCH_NAME::${BRANCH}"
 
   # docker-build-and-push-graphql-server:
   #   runs-on: ubuntu-latest
