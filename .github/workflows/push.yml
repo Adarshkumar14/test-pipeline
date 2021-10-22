@@ -359,7 +359,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ needs.get-envs.outputs.BRANCH }}
-          repository: ${{ secret.MANIFESTS_REPO }}
+          repository: ${{ secrets.MANIFESTS_REPO }}
           token: ${{ secrets.MANIFESTS_TOKEN }}
       - name: Updating the manifests and pushing
         run: |
