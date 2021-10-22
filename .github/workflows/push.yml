@@ -420,4 +420,5 @@ jobs:
           git config user.email chaos-bot@github.com
           git add .
           git commit -m "Manifest updated for $BRANCH branch"
+          
           git push origin staging
