@@ -345,24 +345,28 @@ jobs:
   #           ${{ secrets.REPONAME }}/${{ matrix.frontend.image_name }}:${{ env.TAG }},
   #           ${{ secrets.REPONAME }}/${{ matrix.frontend.image_name }}:${{ env.SHA_TAG }}
   Commit-To-Branch:
-      runs-on: ubuntu-latest
-      needs:
-      - get-envs
-      steps:
+    runs-on: ubuntu-latest
+    needs: get-envs
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/cluster-scope
+    steps:
       - name: Checking out Manifest repository
         uses: actions/checkout@v2
         with:
           ref: "main"
-          repository: "${{ secrets.MANIFESTS_REPO }}"
-          token: "${{ secrets.MANIFESTS_TOKEN }}"
+          repository: "Jonsy13/flux-config"
+          token: ${{ secrets.MANIFESTS_TOKEN }}
       - name: Updating the manifests and pushing
         run: |
-          VERSION="${{ needs.get-envs.outputs.SHA_TAG }}"
-          sed -i -e "s|jonsy13/clc-frontend:.*|jonsy13/clc-frontend:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|jonsy13/clc-server:.*|jonsy13/clc-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|\"jonsy13\/clc-subscriber:.*\"|\"jonsy13/clc-subscriber:$VERSION\"|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|\"jonsy13\/clc-event-tracker:.*\"|\"jonsy13/clc-event-tracker:$VERSION\"|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|jonsy13/clc-auth-server:.*|jonsy13/clc-auth-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          tag=${{needs.get-envs.outputs.SHA_TAG}}
+          sed -i -e "s|VERSION: \".*\"|VERSION: \"$tag\"|g" cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/${{ env.FRONTEND_IMAGE }}:.*|jonsy13/${{ env.FRONTEND_IMAGE }}:$tag|g" cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/${{ env.GRAPHQL_SERVER_IMAGE }}:.*|jonsy13/${{ env.GRAPHQL_SERVER_IMAGE }}:$tag|g" cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/${{ env.AUTHENTICATION_SERVER_IMAGE }}:.*|jonsy13/${{ env.AUTHENTICATION_SERVER_IMAGE }}:$tag|g" cluster-k8s-manifest.yml
+          sed -i -e "s|\"jonsy13/${{ env.SUBSCRIBER_IMAGE }}:.*\"|\"jonsy13/${{ env.SUBSCRIBER_IMAGE }}:$tag\"|g" cluster-k8s-manifest.yml
+          sed -i -e "s|\"jonsy13/${{ env.EVENT_TRACKER }}:.*\"|\"jonsy13/${{ env.EVENT_TRACKER }}:$tag\"|g" cluster-k8s-manifest.yml
           git config user.name chaos-bot
           git config user.email chaos-bot@github.com
           git add .
