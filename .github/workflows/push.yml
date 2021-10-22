@@ -360,8 +360,8 @@ jobs:
           VERSION="${{ needs.get-envs.outputs.SHA_TAG }}"
           sed -i -e "s|jonsy13/clc-frontend:.*|jonsy13/clc-frontend:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
           sed -i -e "s|jonsy13/clc-server:.*|jonsy13/clc-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|\"jonsy13\/clc-subscriber:.*\"|"jonsy13/clc-subscriber:$VERSION"|g" apps/cluster-scope/cluster-k8s-manifest.yml
-          sed -i -e "s|\"jonsy13\/clc-event-tracker:.*\"|"jonsy13/clc-event-tracker:$VERSION"|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|\"jonsy13\/clc-subscriber:.*\"|\"jonsy13/clc-subscriber:$VERSION\"|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|\"jonsy13\/clc-event-tracker:.*\"|\"jonsy13/clc-event-tracker:$VERSION\"|g" apps/cluster-scope/cluster-k8s-manifest.yml
           sed -i -e "s|jonsy13/clc-auth-server:.*|jonsy13/clc-auth-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
           git config user.name chaos-bot
           git config user.email chaos-bot@github.com
