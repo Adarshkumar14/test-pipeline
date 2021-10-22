@@ -357,7 +357,7 @@ jobs:
           token: "${{ secrets.MANIFESTS_TOKEN }}"
       - name: Updating the manifests and pushing
         run: |
-          VERSION="{{ needs.get-envs.outputs.SHA_TAG }}"
+          VERSION="${{ needs.get-envs.outputs.SHA_TAG }}"
           sed -i -e "s|jonsy13/clc-frontend:.*|jonsy13/clc-frontend:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
           sed -i -e "s|jonsy13/clc-server:.*|jonsy13/clc-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
           sed -i -e "s|jonsy13/clc-subscriber:.*|jonsy13/clc-subscriber:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
