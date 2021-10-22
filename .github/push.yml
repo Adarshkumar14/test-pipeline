@@ -7,11 +7,6 @@ on:
     tags-ignore:
       - "**"
 
-defaults:
-  run:
-    working-directory: litmus-portal
-    shell: bash
-
 # All Image names are provided here as envs. (Will be available in all jobs)
 env:
   GRAPHQL_SERVER_IMAGE: "clc-server"
@@ -364,13 +359,13 @@ jobs:
       - name: Updating the manifests and pushing
         run: |
           VERSION="{{ needs.get-envs.outputs.SHA_TAG }}"
-          sed -i -e "s|chaosnative/clc-frontend:.*|chaosnative/clc-frontend:$VERSION|g" kubernetes-infra/clc/clc.yaml
-          sed -i -e "s|chaosnative/clc-server:.*|chaosnative/clc-server:$VERSION|g" kubernetes-infra/clc/clc.yaml
-          sed -i -e "s|chaosnative/clc-subscriber:.*|chaosnative/clc-subscriber:$VERSION|g" kubernetes-infra/clc/clc.yaml
-          sed -i -e "s|chaosnative/clc-event-tracker:.*|chaosnative/clc-event-tracker:$VERSION|g" kubernetes-infra/clc/clc.yaml
-          sed -i -e "s|chaosnative/clc-auth-server:.*|chaosnative/clc-auth-server:$VERSION|g" kubernetes-infra/clc/clc.yaml
-          git config user.name chaosnative-bot
-          git config user.email chaosnative-bot@github.com
+          sed -i -e "s|jonsy13/clc-frontend:.*|jonsy13/clc-frontend:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/clc-server:.*|jonsy13/clc-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/clc-subscriber:.*|jonsy13/clc-subscriber:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/clc-event-tracker:.*|jonsy13/clc-event-tracker:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          sed -i -e "s|jonsy13/clc-auth-server:.*|jonsy13/clc-auth-server:$VERSION|g" apps/cluster-scope/cluster-k8s-manifest.yml
+          git config user.name chaos-bot
+          git config user.email chaos-bot@github.com
           git add .
           git commit -m "Manifest updated for $NAMESPACE branch"
           git push origin main
