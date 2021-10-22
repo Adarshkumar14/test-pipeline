@@ -2,6 +2,7 @@ name: push-pipeline
 on:
   push:
     branches:
+      - staging
       - main
     tags-ignore:
       - "**"
@@ -47,6 +48,7 @@ jobs:
     outputs:
       TAG: ${{ steps.envs.outputs.TAG }}
       SHA_TAG: ${{ steps.envs.outputs.SHA_TAG }}
+      BRANCH: ${{ steps.envs.outputs.BRANCH_NAME }}
       TIME_STAMP: ${{ steps.envs.outputs.TIME_STAMP }}
       CAPTCHA_SITE_KEY_SECRET_NAME: ${{ steps.envs.outputs.CAPTCHA_SITE_KEY_SECRET_NAME }}
       REACT_APP_CDN_URL: ${{ steps.envs.outputs.REACT_APP_CDN_URL }}
@@ -71,6 +73,7 @@ jobs:
           echo "::set-output name=REACT_APP_CDN_URL::REACT_APP_${BRANCH}_CDN_URL"
           echo "::set-output name=REACT_APP_INTERCOM_APP_ID::REACT_APP_${BRANCH}_INTERCOM_APP_ID"
           echo "::set-output name=REACT_APP_INTERCOM_HASH_KEY::REACT_APP_${BRANCH}_INTERCOM_HASH_KEY"
+          echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_REF#refs/heads/})"
 
   # docker-build-and-push-graphql-server:
   #   runs-on: ubuntu-latest
@@ -355,7 +358,7 @@ jobs:
       - name: Checking out Manifest repository
         uses: actions/checkout@v2
         with:
-          ref: "main"
+          ref: ${{needs.get-envs.outputs.BRANCH }}
           repository: "Jonsy13/flux-config"
           token: ${{ secrets.MANIFESTS_TOKEN }}
       - name: Updating the manifests and pushing
