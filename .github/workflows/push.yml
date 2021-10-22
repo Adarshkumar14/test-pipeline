@@ -352,7 +352,7 @@ jobs:
       - name: Checking out Manifest repository
         uses: actions/checkout@v2
         with:
-          ref: "staging"
+          ref: "main"
           repository: "${{ secrets.MANIFESTS_REPO }}"
           token: "${{ secrets.MANIFESTS_TOKEN }}"
       - name: Updating the manifests and pushing
