@@ -357,7 +357,7 @@ jobs:
       # - docker-build-and-push-event-tracker
       # - docker-build-and-push-upgrade-agent-cp
       # - docker-build-and-push-frontend
-    if: ${{ needs.get-envs.outputs.BRANCH }} == 'master'
+    if: ${{ needs.get-envs.outputs.BRANCH == 'master' }}
     defaults:
       run:
         shell: bash
@@ -394,7 +394,7 @@ jobs:
     #   - docker-build-and-push-event-tracker
     #   - docker-build-and-push-upgrade-agent-cp
     #   - docker-build-and-push-frontend
-    if: ${{ needs.get-envs.outputs.BRANCH }} == 'staging'
+    if: ${{ needs.get-envs.outputs.BRANCH  == 'staging' }}
     defaults:
       run:
         shell: bash
