@@ -349,7 +349,6 @@ jobs:
   #           ${{ secrets.REPONAME }}/${{ matrix.frontend.image_name }}:${{ env.SHA_TAG }}
   Deploy-Preprod:
     runs-on: ubuntu-latest
-    if: ${{ needs.get-envs.outputs.BRANCH }} == 'main'
     needs: 
       - get-envs
       # - docker-build-and-push-graphql-server
@@ -358,6 +357,7 @@ jobs:
       # - docker-build-and-push-event-tracker
       # - docker-build-and-push-upgrade-agent-cp
       # - docker-build-and-push-frontend
+    if: ${{ needs.get-envs.outputs.BRANCH }} == 'master'
     defaults:
       run:
         shell: bash
@@ -386,7 +386,6 @@ jobs:
           git push origin main
   Deploy-staging:
     runs-on: ubuntu-latest
-    if: ${{ needs.get-envs.outputs.BRANCH }} == 'staging'
     needs: 
     - get-envs
     #   - docker-build-and-push-graphql-server
@@ -395,6 +394,7 @@ jobs:
     #   - docker-build-and-push-event-tracker
     #   - docker-build-and-push-upgrade-agent-cp
     #   - docker-build-and-push-frontend
+    if: ${{ needs.get-envs.outputs.BRANCH }} == 'staging'
     defaults:
       run:
         shell: bash
@@ -420,5 +420,5 @@ jobs:
           git config user.email chaos-bot@github.com
           git add .
           git commit -m "Manifest updated for $BRANCH branch"
-          
+
           git push origin staging
