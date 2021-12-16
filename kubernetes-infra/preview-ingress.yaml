@@ -20,26 +20,26 @@ spec:
      - hosts:
          - litmus.frontend.com
        secretName: litmus-frontend-tls 
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: litmus-backend-ingress
-  namespace: litmus
-spec:
-  rules:
-  - host: litmus.backend.com
-    http:
-      paths:
-      - path: /backend/(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-              name: litmusportal-server-service
-              port:
-                number: 9002
-  ingressClassName: nginx-backend
-  tls:
-     - hosts:
-         - litmus.backend.com
-       secretName: litmus-backend-tls 
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: litmus-backend-ingress
+#   namespace: litmus
+# spec:
+#   rules:
+#   - host: litmus.backend.com
+#     http:
+#       paths:
+#       - path: /backend/(.*)
+#         pathType: ImplementationSpecific
+#         backend:
+#           service:
+#               name: litmusportal-server-service
+#               port:
+#                 number: 9002
+#   ingressClassName: nginx-backend
+#   tls:
+#      - hosts:
+#          - litmus.backend.com
+#        secretName: litmus-backend-tls 
