@@ -26,6 +26,8 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx-1
   name: server-ingress-nginx
   namespace: ingress-nginx
 spec:
@@ -37,10 +39,10 @@ spec:
         name: ingress-nginx
       version: 3.35.0
   interval: 1m0s
-  values:
-    controller:
-      ingressClassResource:
-        name: nginxx
-        enabled: true
-        default: false
-        controllerValue: "k8s.io/ingress-nginxx"
+  # values:
+  #   controller:
+  #     ingressClassResource:
+  #       name: nginxx
+  #       enabled: true
+  #       default: false
+  #       controllerValue: "k8s.io/ingress-nginxx"
