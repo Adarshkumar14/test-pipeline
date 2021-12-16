@@ -1,26 +1,26 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: litmus-frontend-ingress
-  namespace: litmus
-spec:
-  rules:
-  - host: litmus.frontend.com
-    http:
-      paths:
-      - path: /(.*)
-        pathType: ImplementationSpecific
-        backend:
-          service:
-            name: litmusportal-frontend-service
-            #servicePort: 9091
-            port:
-              number: 9091
-  ingressClassName: nginx-frontend
-  tls:
-     - hosts:
-         - litmus.frontend.com
-       secretName: litmus-frontend-tls 
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: litmus-frontend-ingress
+#   namespace: litmus
+# spec:
+#   rules:
+#   - host: litmus.frontend.com
+#     http:
+#       paths:
+#       - path: /(.*)
+#         pathType: ImplementationSpecific
+#         backend:
+#           service:
+#             name: litmusportal-frontend-service
+#             #servicePort: 9091
+#             port:
+#               number: 9091
+#   ingressClassName: nginx-frontend
+#   tls:
+#      - hosts:
+#          - litmus.frontend.com
+#        secretName: litmus-frontend-tls 
 # ---
 # apiVersion: networking.k8s.io/v1
 # kind: Ingress
