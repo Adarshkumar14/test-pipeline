@@ -9,8 +9,8 @@ spec:
     http:
       paths:
       - path: /(.*)
-        pathType: Prefix
-        defaultBackend:
+        pathType: ImplementationSpecific
+        backend:
           service:
             name: litmusportal-frontend-service
             #servicePort: 9091
