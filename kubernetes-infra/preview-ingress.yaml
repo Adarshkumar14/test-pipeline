@@ -12,9 +12,10 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: litmusportal-frontend-service
-            port:
-              number: 9091
+            serviceName: litmusportal-frontend-service
+            servicePort: 9091
+            # port:
+            #   number: 9091
   ingressClassName: nginx-frontend
   tls:
      - hosts:
