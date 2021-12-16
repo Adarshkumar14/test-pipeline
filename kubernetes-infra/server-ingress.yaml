@@ -8,19 +8,20 @@
    name: litmus-backend-ingress
    namespace: litmus
  spec:
-  ingressClassName: nginx-backend
+  
   rules:
-     - host: litmus.backend.com
-       http:
-         paths:
-           - backend:
-               serviceName: litmusportal-server-service
-               servicePort: 9002
-             pathType: ImplementationSpecific
-             path: /backend/(.*)
+  - host: litmus.backend.com
+      http:
+        paths:
+          - backend:
+              serviceName: litmusportal-server-service
+              servicePort: 9002
+            pathType: ImplementationSpecific
+            path: /backend/(.*)
+  ingressClassName: nginx-backend
 
    # This section is only required if TLS is to be enabled for the Ingress
-   tls:
+  tls:
      - hosts:
          - litmus.backend.com
        secretName: litmus-backend-tls

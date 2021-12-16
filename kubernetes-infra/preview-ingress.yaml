@@ -8,18 +8,18 @@
    name: litmus-frontend-ingress
    namespace: litmus
  spec:
-  ingressClassName: nginx-frontend
   rules:
-     - host: litmus.frontend.com
-       http:
-         paths:
-           - backend:
-               serviceName: litmusportal-frontend-service
-               servicePort: 9091
-             path: /(.*)
+  - host: litmus.frontend.com
+      http:
+        paths:
+          - backend:
+              serviceName: litmusportal-frontend-service
+              servicePort: 9091
+            path: /(.*)
+  ingressClassName: nginx-frontend
 
    # This section is only required if TLS is to be enabled for the Ingress
-   tls:
+  tls:
      - hosts:
          - litmus.frontend.com
        secretName: litmus-frontend-tls
