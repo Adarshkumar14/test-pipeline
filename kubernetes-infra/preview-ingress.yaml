@@ -1,13 +1,35 @@
- apiVersion: networking.k8s.io/v1beta1
- kind: Ingress
- metadata:
-   annotations:
-     #kubernetes.io/ingress.class: nginx
-     #cert-manager.io/cluster-issuer: letsencrypt
-     nginx.ingress.kubernetes.io/rewrite-target: /$1
+#  apiVersion: networking.k8s.io/v1beta1
+#  kind: Ingress
+#  metadata:
+#    annotations:
+#      #kubernetes.io/ingress.class: nginx
+#      #cert-manager.io/cluster-issuer: letsencrypt
+#      nginx.ingress.kubernetes.io/rewrite-target: /$1
+#    name: litmus-frontend-ingress
+#    namespace: litmus
+#  spec:
+#   rules:
+#   - host: litmus.frontend.com
+#       http:
+#         paths:
+#           - backend:
+#               serviceName: litmusportal-frontend-service
+#               servicePort: 9091
+#             path: /(.*)
+#   ingressClassName: nginx-frontend
+
+#    # This section is only required if TLS is to be enabled for the Ingress
+#   tls:
+#      - hosts:
+#          - litmus.frontend.com
+#        secretName: litmus-frontend-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
    name: litmus-frontend-ingress
    namespace: litmus
- spec:
+spec:
   rules:
   - host: litmus.frontend.com
       http:
@@ -17,9 +39,8 @@
               servicePort: 9091
             path: /(.*)
   ingressClassName: nginx-frontend
-
-   # This section is only required if TLS is to be enabled for the Ingress
+  
   tls:
      - hosts:
          - litmus.frontend.com
-       secretName: litmus-frontend-tls
+       secretName: litmus-frontend-tls 
