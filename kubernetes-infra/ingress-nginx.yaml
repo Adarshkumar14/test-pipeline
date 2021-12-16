@@ -1,6 +1,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+
   name: ingress-nginx
   namespace: ingress-nginx
 spec:
