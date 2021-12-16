@@ -9,7 +9,7 @@
    namespace: litmus
  spec:
   ingressClassName: nginx-frontend
-   rules:
+  rules:
      - host: litmus.frontend.com
        http:
          paths:
