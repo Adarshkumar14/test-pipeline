@@ -9,7 +9,7 @@
    namespace: litmus
  spec:
   ingressClassName: nginx-backend
-   rules:
+  rules:
      - host: litmus.backend.com
        http:
          paths:
