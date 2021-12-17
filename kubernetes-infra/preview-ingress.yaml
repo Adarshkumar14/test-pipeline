@@ -1,65 +1,65 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   annotations:
-#     #kubernetes.io/ingress.class: nginx
-#     nginx.ingress.kubernetes.io/rewrite-target: /$1
-#   name: litmus-frontend-ingress
-#   namespace: litmus
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    #kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: litmus-frontend-ingress
+  namespace: litmus
 
-# spec:
-#   defaultBackend:
-#     service:
-#       name: litmusportal-frontend-service
-#       port:
-#         number: 9091
-#   rules:
-#   - host: litmus.frontend.com
-#     http:
-#       paths:
-#       - path: /(.*)
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: litmusportal-frontend-service
-#             #servicePort: 9091
-#             port:
-#               number: 9091
-#   ingressClassName: ngxxx
-#   tls:
-#      - hosts:
-#          - litmus.frontend.com
-#        secretName: litmus-frontend-tls 
-# ---
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   annotations:
-#     #kubernetes.io/ingress.class: nginx-1
-#     nginx.ingress.kubernetes.io/rewrite-target: /$1
-#   name: litmus-backend-ingress
-#   namespace: litmus
-# spec:
-#   defaultBackend:
-#     service:
-#       name: litmusportal-server-service
-#       port:
-#         number: 9092
-#   rules:
-#   - host: litmus.backend.com
-#     http:
-#       paths:
-#       - path: /backend/(.*)
-#         pathType: ImplementationSpecific
-#         backend:
-#           service:
-#               name: litmusportal-server-service
-#               #servicePort: 9002
+spec:
+  defaultBackend:
+    service:
+      name: litmusportal-frontend-service
+      port:
+        number: 9091
+  rules:
+  - host: litmus.frontend.com
+    http:
+      paths:
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: litmusportal-frontend-service
+            #servicePort: 9091
+            port:
+              number: 9091
+  ingressClassName: ngxxx
+  tls:
+     - hosts:
+         - litmus.frontend.com
+       secretName: litmus-frontend-tls 
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    #kubernetes.io/ingress.class: nginx-1
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  name: litmus-backend-ingress
+  namespace: litmus
+spec:
+  defaultBackend:
+    service:
+      name: litmusportal-server-service
+      port:
+        number: 9092
+  rules:
+  - host: litmus.backend.com
+    http:
+      paths:
+      - path: /backend/(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+              name: litmusportal-server-service
+              #servicePort: 9002
 
-#               port:
-#                 number: 9002
-#   ingressClassName: nginx
-#   tls:
-#      - hosts:
-#          - litmus.backend.com
-#        secretName: litmus-backend-tls 
+              port:
+                number: 9002
+  ingressClassName: nginx
+  tls:
+     - hosts:
+         - litmus.backend.com
+       secretName: litmus-backend-tls 
