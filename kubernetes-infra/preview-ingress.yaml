@@ -25,7 +25,7 @@
 #             #servicePort: 9091
 #             port:
 #               number: 9091
-#   ingressClassName: nginx-2
+#   ingressClassName: ngxxx
 #   tls:
 #      - hosts:
 #          - litmus.frontend.com
